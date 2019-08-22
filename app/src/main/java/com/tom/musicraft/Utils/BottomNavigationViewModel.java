@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.tom.musicraft.Home.HomeActivity;
+import com.tom.musicraft.Home.HomeFragment;
 import com.tom.musicraft.Profile.ProfileActivity;
 import com.tom.musicraft.R;
 
@@ -72,4 +74,36 @@ public class BottomNavigationViewModel
 
 
     }
+
+    static Fragment fragment = null;
+    static HomeFragment home = null;
+    public static void Initialize(Fragment fragment2)
+    {
+        fragment = fragment2;
+        home = new HomeFragment();
+    }
+
+
+    public static void NavigateTo( BottomNavigationViewEx view) // final Context context, final Fragment fragment,
+    {
+        view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+
+                    case R.id.ic_house:
+//                        Intent intent1 = new Intent(context, HomeActivity.class);//ACTIVITY_NUM = 0
+                        fragment.setTargetFragment(home, 1);
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
+
+
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.tom.musicraft.Home;
 
+import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +46,11 @@ public class HomeActivity extends AppCompatActivity
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewModel.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewModel.enableNavigation(context, this,bottomNavigationViewEx);
+
+        Fragment mainFragment = getSupportFragmentManager().findFragmentById(R.id.mainFragment);
+
+        BottomNavigationViewModel.Initialize(mainFragment);
+        BottomNavigationViewModel.NavigateTo(bottomNavigationViewEx);
 //        Menu menu = bottomNavigationViewEx.getMenu();
 //        MenuItem menuItem = menu.getItem(0);
 //        menuItem.setChecked(true);

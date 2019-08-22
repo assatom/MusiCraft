@@ -26,6 +26,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tom.musicraft.Home.HomeActivity;
+import com.tom.musicraft.Main.MainActivity;
 import com.tom.musicraft.R;
 
 
@@ -116,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                     else{
 
-                                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                        Intent intent = new Intent(LoginActivity.this, /*HomeActivity.class*/ MainActivity.class);
                                         startActivity(intent);
 
 
@@ -165,9 +166,9 @@ public class LoginActivity extends AppCompatActivity {
          /*
          If the user is logged in then navigate to HomeActivity and call 'finish()'
           */
-        mAuth.signOut();
+        //mAuth.signOut();
         if(mAuth.getCurrentUser() != null){
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            Intent intent = new Intent(LoginActivity.this, /*HomeActivity.class*/ MainActivity.class);
             startActivity(intent);
             finish();
         }
