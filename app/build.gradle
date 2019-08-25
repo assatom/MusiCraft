@@ -35,7 +35,7 @@ dependencies {
 
     implementation 'com.android.support:design:29.0.2'
     implementation 'com.google.firebase:firebase-firestore:21.0.0'
-
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
     //Design library for Coordinator Layout and Toolbars
 //    compile 'com.android.support:design:27.0.2'
 //    compile 'com.android.support:appcompat-v7:27.1.1'
