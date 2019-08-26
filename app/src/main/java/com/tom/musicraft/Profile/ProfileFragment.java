@@ -109,9 +109,12 @@ public class ProfileFragment extends Fragment
                 UserAccountSettings user = dataSnapshot.getValue(UserAccountSettings.class);
 
 //                mPosts= user.getPosts();
-                mFollowers.setText(String.valueOf(user.getFollowers()));
-                mFollowing.setText(String.valueOf(user.getFollowing()));
-                mDisplayName.setText(String.valueOf(user.getUserName()));
+
+                if(user!=null) {
+                    mFollowers.setText(String.valueOf(user.getFollowers()));
+                    mFollowing.setText(String.valueOf(user.getFollowing()));
+                    mDisplayName.setText(String.valueOf(user.getUserName()));
+                }
 //                Glide.with(getContext()).load(user.getImageurl()).into(image_profile);
 
             }

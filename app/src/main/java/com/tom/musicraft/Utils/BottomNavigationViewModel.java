@@ -35,11 +35,11 @@ public class BottomNavigationViewModel
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
 
-//                    case R.id.ic_house:
-//                        Intent intent1 = new Intent(context, HomeActivity.class);//ACTIVITY_NUM = 0
-//                        context.startActivity(intent1);
-//                        callingActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-//                        break;
+                    case R.id.ic_house:
+                       Intent intent1 = new Intent(context, HomeActivity.class);//ACTIVITY_NUM = 0
+                       context.startActivity(intent1);
+                      // callingActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                       break;
 
 //                    case R.id.ic_search:
 //                        Intent intent2  = new Intent(context, SearchActivity.class);//ACTIVITY_NUM = 1

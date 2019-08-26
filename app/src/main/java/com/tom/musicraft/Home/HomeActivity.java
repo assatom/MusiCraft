@@ -14,7 +14,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.tom.musicraft.Models.Post;
 import com.tom.musicraft.R;
+import com.tom.musicraft.Services.FirebaseService;
 import com.tom.musicraft.Utils.BottomNavigationViewModel;
 
 public class HomeActivity extends AppCompatActivity
@@ -23,6 +25,8 @@ public class HomeActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Context context = HomeActivity.this;
+    private FirebaseService firebaseService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,10 @@ public class HomeActivity extends AppCompatActivity
 //
 //        initImageLoader();
         initNavigationView();
+        String url = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/Qopx44kAmdE\" frameborder=\"0\" allowfullscreen></iframe>";
+      //  Post p = new Post("Some text", url , "01/01/2019",  null);
+       // firebaseService.addPost(p);
+
 //        setupViewPager();
 
     }
