@@ -15,6 +15,7 @@ import com.tom.musicraft.Home.HomeActivity;
 import com.tom.musicraft.Home.HomeFragment;
 import com.tom.musicraft.Profile.ProfileActivity;
 import com.tom.musicraft.R;
+import com.tom.musicraft.UploadVideo.UploadVideoFragment;
 
 public class BottomNavigationViewModel
 {
@@ -47,9 +48,9 @@ public class BottomNavigationViewModel
 //                        callingActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 //                        break;
 
-//                    case R.id.ic_circle:
-//                        Intent intent3 = new Intent(context, ShareActivity.class);//ACTIVITY_NUM = 2
-//                        context.startActivity(intent3);
+                    case R.id.ic_circle:
+                        Intent intent3 = new Intent(context, UploadVideoFragment.class);//ACTIVITY_NUM = 2
+                        context.startActivity(intent3);
 //                        callingActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 //                        break;
 //

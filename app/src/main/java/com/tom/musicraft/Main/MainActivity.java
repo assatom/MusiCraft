@@ -11,6 +11,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tom.musicraft.Home.HomeFragment;
 import com.tom.musicraft.Profile.ProfileFragment;
 import com.tom.musicraft.R;
+import com.tom.musicraft.UploadVideo.UploadVideoFragment;
+
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 //                            selectedFragment = new ProfileFragment();
                             break;
                         case R.id.ic_circle:
-                            selectedFragment = null;
+                            selectedFragment = new UploadVideoFragment();
 //                            startActivity(new Intent(MainActivity.this, PostActivity.class));
                             break;
                     }
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ButterKnife.bind(this);
 //        db = new FirebaseDB(this);
         bottomNavigationView = findViewById(R.id.bottomNavViewBar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);

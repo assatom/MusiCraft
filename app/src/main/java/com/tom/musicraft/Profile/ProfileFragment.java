@@ -30,6 +30,7 @@ import com.tom.musicraft.Services.FirebaseService;
 
 public class ProfileFragment extends Fragment
 {
+    private static final String TAG = "ProfileFragment";
     private TextView mPosts, mFollowers, mFollowing, mDisplayName, mUsername;
     private ProgressBar mProgressBar;
     //private CircleImageView mProfilePhoto;
