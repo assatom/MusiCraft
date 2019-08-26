@@ -5,38 +5,64 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.room.Dao;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.tom.musicraft.Interfaces.IFirebaseListener;
+import com.tom.musicraft.Models.Post;
 import com.tom.musicraft.Models.User;
 import com.tom.musicraft.Models.UserAccountSettings;
 import com.tom.musicraft.Models.UserSettings;
 import com.tom.musicraft.R;
+import com.tom.musicraft.Utils.DateTimeUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class FirebaseService
 {
     private static final String TAG = "FirebaseService";
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
     private String userID;
     private Context context;
+    CollectionReference userRef;
+    CollectionReference postRef;
+    CollectionReference commentRef;
+    private ListenerRegistration listenerRegistration;
 
 
     public FirebaseService(Context context)
     {
         this.context = context;
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(false).build();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference();
+        userRef=db.collection("Users");
+        postRef=db.collection("Posts");
+        commentRef=db.collection("Comments");
 //        mStorageReference = FirebaseStorage.getInstance().getReference();
 
         if(mAuth.getCurrentUser() != null){
@@ -47,18 +73,17 @@ public class FirebaseService
 
     public void addNewUser(String email, String username){
 
-        UserAccountSettings user = new UserAccountSettings(
-                0,
-                0,
-                email,
-                userID,
-                username
-        );
+    UserAccountSettings user = new UserAccountSettings(
+            0,
+            0,
+            email,
+            userID,
+            username
+    );
 
-        DatabaseReference usersRef = myRef.child("Users").child(userID);
-        usersRef.setValue(user);
-    }
-
+    DatabaseReference usersRef = myRef.child("Users").child(userID);
+    usersRef.setValue(user);
+}
 
     public void registerNewEmail(final String email, String password, final String username)
     {
@@ -159,6 +184,78 @@ public class FirebaseService
         }
         return new UserSettings(user, settings);
 
+    }
+
+    public void updatePostsListener(long from, IFirebaseListener listener) {
+        listenerRegistration.remove();
+        getAllPosts(DateTimeUtils.getTimestampFromLong(from), listener);
+    }
+
+    public void getAllPosts(long updateFrom,final IFirebaseListener listener) {
+        Timestamp timeStamp;
+        if(updateFrom==0) {
+            timeStamp = DateTimeUtils.getTimeStamp(2019, 1, 1);
+            Log.d("Tag", "getAllPosts if: timeStamp = " + timeStamp);
+        }
+        else{
+            timeStamp= DateTimeUtils.getTimestampFromLong(updateFrom);
+            Log.d("Tag", "getAllPosts else: timeStamp = " + timeStamp);
+        }
+
+        getAllPosts(timeStamp,listener);
+    }
+    private  void getAllPosts(Timestamp from, IFirebaseListener listener)
+    {
+        /*listenerRegistration = postRef.whereGreaterThan("lastUpdate", from).addSnapshotListener((snapshot, e) -> {
+            if (e != null) {
+                return;
+            }
+            if (snapshot != null && !snapshot.isEmpty()) {
+                List<Post> posts= new ArrayList<>();
+                snapshot.getDocumentChanges().get(0).getDocument().toObject(Post.class);
+                for (DocumentChange docChange : snapshot.getDocumentChanges()) {
+                    posts.add(docChange.getDocument().toObject(Post.class));
+                }
+                Log.d("Tag", "posts size in observer = " + posts.size());
+                posts= snapshot.toObjects(Post.class);
+                listener.updatePosts(posts);
+            }
+        });*/
+    }
+
+    public void updatePost(final Post post){//, final Dao.UpdatePostListener listener){
+      /*  postRef.document(post.getId()).set(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                listener.onComplete(post);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("Tag", "onFailure: updatePost " + post.getId() + " failed");
+                listener.onComplete(null);
+            }
+        });*/
+    }
+
+    public void addPost(final Post post){//, final Dao.AddPostListener listener) {
+
+        String id = postRef.document().getId();
+        post.setId(id);
+        //postRef.document(id).set(post);
+
+        DatabaseReference usersRef = myRef.child("Posts").child(id);
+        usersRef.setValue(post);
+    }
+
+    public void deletePost(String postId){//, final Dao.DeletePostListener listener) {
+        try {
+            postRef.document(postId).delete();
+            Log.d(TAG, "onComplete: deletePost: " + postId);
+        }
+        catch (Exception ex) {
+            Log.d(TAG, "Exception: delete post: " + postId);
+        }
     }
 
 

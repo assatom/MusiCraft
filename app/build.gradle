@@ -6,6 +6,7 @@ android {
     defaultConfig {
         applicationId "com.tom.musicraft"
         minSdkVersion 16
+        multiDexEnabled true
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -36,6 +37,9 @@ dependencies {
     implementation 'com.android.support:design:29.0.2'
     implementation 'com.google.firebase:firebase-firestore:21.0.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.room:room-runtime:2.1.0'
+    annotationProcessor 'androidx.room:room-compiler:2.1.0'
     //Design library for Coordinator Layout and Toolbars
 //    compile 'com.android.support:design:27.0.2'
 //    compile 'com.android.support:appcompat-v7:27.1.1'

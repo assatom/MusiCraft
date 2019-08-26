@@ -6,6 +6,7 @@ public class Post
     private String videoUrl;
     private String date;
     private User user;
+    private String postID;
 
     public Post(String text, String videoUrl, String date, User user) {
         this.text = text;
@@ -44,5 +45,12 @@ public class Post
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setId(String id){
+        this.postID = id;
+    }
+    public String getId(){
+        return this.postID;
     }
 }

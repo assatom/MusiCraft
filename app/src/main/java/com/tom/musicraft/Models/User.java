@@ -1,17 +1,26 @@
 package com.tom.musicraft.Models;
 
+import java.util.List;
+import java.util.Vector;
+
 public class User
 {
     private String user_id;
     private long phone_number;
     private String email;
     private String username;
+    private Vector<Post> userPosts;
 
     public User(String user_id, long phone_number, String email, String username) {
         this.user_id = user_id;
         this.phone_number = phone_number;
         this.email = email;
         this.username = username;
+        this.userPosts = new Vector<Post>();
+    }
+
+    public User(Vector<Post> userPosts){
+        userPosts=new Vector<Post>();
     }
 
     public User() {}
@@ -66,6 +75,11 @@ public class User
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void AddPost(Post post)
+    {
+        this.userPosts.add(post);
     }
 
 
