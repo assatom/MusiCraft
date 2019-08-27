@@ -45,9 +45,16 @@ public class ProfileFragment extends Fragment
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
     private FirebaseService mFirebaseService;
-    FirebaseUser firebaseUser;
+    private FirebaseUser firebaseUser;
 
+    private boolean currentUserFlag = true;
+    UserAccountSettings user;
 
+    public ProfileFragment(UserAccountSettings user)
+    {
+        this.user = user;
+    }
+    public ProfileFragment(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -95,6 +102,12 @@ public class ProfileFragment extends Fragment
 
     private void setUserDetalies()
     {
+        if(user!= null)
+        {
+            insertUserDetailes();
+            return;
+        }
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String userID = firebaseUser.getUid();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -107,17 +120,10 @@ public class ProfileFragment extends Fragment
                 if(getContext() == null)
                     return;
 
-                UserAccountSettings user = dataSnapshot.getValue(UserAccountSettings.class);
-
-//                mPosts= user.getPosts();
-
+                user = dataSnapshot.getValue(UserAccountSettings.class);
                 if(user!=null) {
-                    mFollowers.setText(String.valueOf(user.getFollowers()));
-                    mFollowing.setText(String.valueOf(user.getFollowing()));
-                    mDisplayName.setText(String.valueOf(user.getUserName()));
+                    insertUserDetailes();
                 }
-//                Glide.with(getContext()).load(user.getImageurl()).into(image_profile);
-
             }
 
             @Override
@@ -129,5 +135,12 @@ public class ProfileFragment extends Fragment
 
     }
 
-
+    private void insertUserDetailes()
+    {
+        mFollowers.setText(String.valueOf(user.getFollowers()));
+        mFollowing.setText(String.valueOf(user.getFollowing()));
+        mDisplayName.setText(String.valueOf(user.getUserName()));
+        // Glide.with(getContext()).load(user.getImageurl()).into(image_profile);
+        //                mPosts= user.getPosts();
+    }
 }

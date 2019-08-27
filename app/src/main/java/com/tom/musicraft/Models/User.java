@@ -8,14 +8,14 @@ public class User
     private String user_id;
     private long phone_number;
     private String email;
-    private String username;
+    private String userName;
     private Vector<Post> userPosts;
 
     public User(String user_id, long phone_number, String email, String username) {
         this.user_id = user_id;
         this.phone_number = phone_number;
         this.email = email;
-        this.username = username;
+        this.userName = username;
         this.userPosts = new Vector<Post>();
     }
 
@@ -70,11 +70,11 @@ public class User
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.userName = username;
     }
 
     public void AddPost(Post post)
@@ -89,7 +89,7 @@ public class User
                 "user_id='" + user_id + '\'' +
                 ", phone_number='" + phone_number + '\'' +
                 ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
+                ", username='" + userName + '\'' +
                 '}';
     }
 }

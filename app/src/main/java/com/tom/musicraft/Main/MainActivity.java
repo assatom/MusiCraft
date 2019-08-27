@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tom.musicraft.Home.HomeFragment;
 import com.tom.musicraft.Profile.ProfileFragment;
 import com.tom.musicraft.R;
+import com.tom.musicraft.Search.SearchFragment;
 import com.tom.musicraft.UploadVideo.UploadVideoFragment;
 
 import butterknife.ButterKnife;
@@ -30,8 +31,7 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new HomeFragment();
                             break;
                         case R.id.ic_search:
-                            selectedFragment = null;
-//                            selectedFragment = new SearchFragment();
+                            selectedFragment = new SearchFragment();
                             break;
                         case R.id.ic_android:
                             selectedFragment = new ProfileFragment();

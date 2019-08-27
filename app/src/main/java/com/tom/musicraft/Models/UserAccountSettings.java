@@ -10,7 +10,6 @@ public class UserAccountSettings
     private String userName;
 
 
-
     public UserAccountSettings(long followers, long following, String email , String user_id, String userName)
     {
         this.followers = followers;

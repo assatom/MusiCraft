@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -204,6 +205,7 @@ public class FirebaseService
 
         getAllPosts(timeStamp,listener);
     }
+
     private  void getAllPosts(Timestamp from, IFirebaseListener listener)
     {
         /*listenerRegistration = postRef.whereGreaterThan("lastUpdate", from).addSnapshotListener((snapshot, e) -> {
@@ -258,5 +260,10 @@ public class FirebaseService
         }
     }
 
+
+    public FirebaseUser getCurrentUser(){
+        return mAuth.getCurrentUser();
+
+    }
 
 }
