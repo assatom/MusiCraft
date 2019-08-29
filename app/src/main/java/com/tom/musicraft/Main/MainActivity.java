@@ -12,7 +12,8 @@ import com.tom.musicraft.Home.HomeFragment;
 import com.tom.musicraft.Profile.ProfileFragment;
 import com.tom.musicraft.R;
 import com.tom.musicraft.Search.SearchFragment;
-import com.tom.musicraft.UploadVideo.UploadVideoFragment;
+import com.tom.musicraft.Services.FirebaseService;
+import com.tom.musicraft.UploadVideo.AddPostFragment;
 
 import butterknife.ButterKnife;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 //                            selectedFragment = new ProfileFragment();
                             break;
                         case R.id.ic_circle:
-                            selectedFragment = new UploadVideoFragment();
+                            selectedFragment = new AddPostFragment();
 //                            startActivity(new Intent(MainActivity.this, PostActivity.class));
                             break;
                     }
@@ -57,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-//        db = new FirebaseDB(this);
+
+        FirebaseService.getInstance().init(this.getApplication());
+
         bottomNavigationView = findViewById(R.id.bottomNavViewBar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 

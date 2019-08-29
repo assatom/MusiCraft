@@ -1,12 +1,22 @@
 package com.tom.musicraft.Models;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "user_table")
 public class UserAccountSettings
 {
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "user_ID")
+    private String user_id;
+
     private long followers;
     private long following;
-//    private String profile_photo;
+    //    private String profile_photo;
     private String email;
-    private String user_id;
     private String userName;
 
 

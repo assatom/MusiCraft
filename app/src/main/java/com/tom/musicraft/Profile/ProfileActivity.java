@@ -164,7 +164,7 @@ public class ProfileActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //retrieve user information from the database
-                setProfileWidgets(mFirebaseService.getUserSettings(dataSnapshot));
+                //setProfileWidgets(mFirebaseService.getUserSettings(dataSnapshot));
 
                 //retrieve images for the user in question
 

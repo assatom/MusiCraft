@@ -49,6 +49,7 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.1.0'
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     //Design library for Coordinator Layout and Toolbars
 //    compile 'com.android.support:design:27.0.2'
 //    compile 'com.android.support:appcompat-v7:27.1.1'

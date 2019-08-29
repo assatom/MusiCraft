@@ -7,15 +7,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tom.musicraft.Adapters.PostsListAdapter;
 import com.tom.musicraft.Login.RegisterActivity;
 import com.tom.musicraft.Models.Post;
+import com.tom.musicraft.Post.PostViewModel;
+import com.tom.musicraft.Post.PostsListViewModel;
 import com.tom.musicraft.R;
 import com.tom.musicraft.Services.FirebaseService;
 
+import java.util.List;
 import java.util.Vector;
 
 public class HomeFragment extends Fragment {
@@ -24,7 +29,7 @@ public class HomeFragment extends Fragment {
     private Vector<Post> mPostsList = new Vector<>();
     private Context mContext;
     private FirebaseService firebaseService;
-
+    private PostsListViewModel mViewModel;
 
     @Override
     public void onAttach(Context context) {
@@ -39,6 +44,9 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         firebaseService = new FirebaseService(mContext);
         mListView = (RecyclerView ) view.findViewById(R.id.posts_list);
+        mViewModel = ViewModelProviders.of(this).get(PostsListViewModel.class);
+
+
         InitListView();
         return view;
     }
@@ -55,21 +63,20 @@ public class HomeFragment extends Fragment {
        // mPostsList.add(new Post("Some text", url , "01/01/2019",  null));
         //mPostsList.add(new Post("Some text", url , "02/01/2019",  null));
 
-        Post p = new Post("Some text", url , "01/01/2019",  null);
-        firebaseService.addPost(p);
+        //Post p = new Post("Some text", url , "01/01/2019",  null);
+//        firebaseService.addPost(p);
 
         PostsListAdapter adapter = new PostsListAdapter(mPostsList);
         mListView.setAdapter(adapter);
 
+        mViewModel.getAllPosts().observe(this, new Observer<List<Post>>() {
+            @Override
+            public void onChanged(@Nullable final List<Post> posts) {
+                // Update the cached copy of the words in the adapter.
+                adapter.setPosts(posts);
+            }
+        });
 
-
-//        mListView.setHorizontalFadingEdgeEnabled(true);
-//        mListView.setAdapter(adapter);
-//        mListView.enableLoadFooter(true)
-//                .getLoadFooter().setLoadAction(LoadFooter.LoadAction.RELEASE_TO_LOAD);
-//        mListView.setOnUpdateListener(this)
-//                .setOnLoadListener(this);
-//        mListView.requestUpdate();
     }
 
 

@@ -12,22 +12,6 @@ public class Comment {
     private Timestamp lastUpdate;
     private String mPostId;
 
-    public String getPostId() {
-        return mPostId;
-    }
-
-    public void setPostId(String mPostId) {
-        this.mPostId = mPostId;
-    }
-
-    public String getUserId() {
-        return mUserId;
-    }
-
-    public void setUserId(String userId) {
-        this.mUserId = userId;
-    }
-
     public Comment(){
         // Need empty ctor for deserialization from DB
     }
@@ -48,26 +32,44 @@ public class Comment {
         this.mUserId = userId;
     }
 
-    public User getAuthor() {
-        return this.mAuthor;
-    }
-    public void setAuthor(User author) {
-        this.mAuthor = author;
+    public String getmId() {
+        return mId;
     }
 
-    public String getText() {
-        return this.mText;
-    }
-    public void setText(String text) {
-        this.mText = text;
+    public void setmId(String mId) {
+        this.mId = mId;
     }
 
-    public String getCreationDate() {
-        return this.mCreationDate;
+    public String getmUserId() {
+        return mUserId;
     }
 
-    public void setCreationDate(String creationDate) {
-        this.mCreationDate = creationDate;
+    public void setmUserId(String mUserId) {
+        this.mUserId = mUserId;
+    }
+
+    public User getmAuthor() {
+        return mAuthor;
+    }
+
+    public void setmAuthor(User mAuthor) {
+        this.mAuthor = mAuthor;
+    }
+
+    public String getmText() {
+        return mText;
+    }
+
+    public void setmText(String mText) {
+        this.mText = mText;
+    }
+
+    public String getmCreationDate() {
+        return mCreationDate;
+    }
+
+    public void setmCreationDate(String mCreationDate) {
+        this.mCreationDate = mCreationDate;
     }
 
     public Timestamp getLastUpdate() {
@@ -76,5 +78,13 @@ public class Comment {
 
     public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public String getmPostId() {
+        return mPostId;
+    }
+
+    public void setmPostId(String mPostId) {
+        this.mPostId = mPostId;
     }
 }

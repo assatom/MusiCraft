@@ -15,7 +15,7 @@ import com.tom.musicraft.Home.HomeActivity;
 import com.tom.musicraft.Home.HomeFragment;
 import com.tom.musicraft.Profile.ProfileActivity;
 import com.tom.musicraft.R;
-import com.tom.musicraft.UploadVideo.UploadVideoFragment;
+import com.tom.musicraft.UploadVideo.AddPostFragment;
 
 public class BottomNavigationViewModel
 {
@@ -49,7 +49,7 @@ public class BottomNavigationViewModel
 //                        break;
 
                     case R.id.ic_circle:
-                        Intent intent3 = new Intent(context, UploadVideoFragment.class);//ACTIVITY_NUM = 2
+                        Intent intent3 = new Intent(context, AddPostFragment.class);//ACTIVITY_NUM = 2
                         context.startActivity(intent3);
 //                        callingActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 //                        break;

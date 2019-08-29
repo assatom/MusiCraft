@@ -80,6 +80,10 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         return mVideoList.size();
     }
 
+    public void setPosts(List<Post> posts){
+        mVideoList = posts;
+        notifyDataSetChanged();
+    }
 
 
     // View holder
