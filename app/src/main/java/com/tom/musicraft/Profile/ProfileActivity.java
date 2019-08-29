@@ -26,9 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-import com.tom.musicraft.Models.User;
 import com.tom.musicraft.Models.UserAccountSettings;
-import com.tom.musicraft.Models.UserSettings;
 import com.tom.musicraft.R;
 import com.tom.musicraft.Services.FirebaseService;
 import com.tom.musicraft.Utils.BottomNavigationViewModel;
@@ -113,23 +111,23 @@ public class ProfileActivity extends AppCompatActivity
 //        menuItem.setChecked(true);
     }
 
-    private void setProfileWidgets(UserSettings userSettings) {
-        //Log.d(TAG, "setProfileWidgets: setting widgets with data retrieving from firebase database: " + userSettings.toString());
-        //Log.d(TAG, "setProfileWidgets: setting widgets with data retrieving from firebase database: " + userSettings.getSettings().getUsername());
-
-
-        //User user = userSettings.getUser();
-        UserAccountSettings settings = userSettings.getSettings();
-
-        /// UniversalImageLoader.setImage(settings.getProfile_photo(), mProfilePhoto, null, "");
-
-//        Glide.with(getActivity())
-//                .load(settings.getProfile_photo())
-//                .into(mProfilePhoto);
-
-//        mUsername.setText(settings.getUsername());
-        mProgressBar.setVisibility(View.GONE);
-    }
+//    private void setProfileWidgets(UserSettings userSettings) {
+//        //Log.d(TAG, "setProfileWidgets: setting widgets with data retrieving from firebase database: " + userSettings.toString());
+//        //Log.d(TAG, "setProfileWidgets: setting widgets with data retrieving from firebase database: " + userSettings.getSettings().getUsername());
+//
+//
+//        //User user = userSettings.getUser();
+//        UserAccountSettings settings = userSettings.getSettings();
+//
+//        /// UniversalImageLoader.setImage(settings.getProfile_photo(), mProfilePhoto, null, "");
+//
+////        Glide.with(getActivity())
+////                .load(settings.getProfile_photo())
+////                .into(mProfilePhoto);
+//
+////        mUsername.setText(settings.getUsername());
+//        mProgressBar.setVisibility(View.GONE);
+//    }
 
     // ================================
     // Get from firebase functions

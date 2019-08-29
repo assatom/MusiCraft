@@ -11,7 +11,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.tom.musicraft.Models.Comment;
 import com.tom.musicraft.Models.Post;
-import com.tom.musicraft.Models.User;
 
 @Database(entities = {Post.class/*, Comment.class, User.class*/}, version = 5)
 public abstract class PostRoomDatabase extends RoomDatabase {

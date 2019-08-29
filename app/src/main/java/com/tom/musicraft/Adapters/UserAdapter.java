@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.tom.musicraft.Models.User;
 import com.tom.musicraft.Models.UserAccountSettings;
 import com.tom.musicraft.Profile.ProfileFragment;
 import com.tom.musicraft.R;

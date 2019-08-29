@@ -71,8 +71,9 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         postRowViewHolder.mWebView.loadData(mVideoList.get(i).getVideoUrl(), "text/html", "UTF-8");
         postRowViewHolder.mDate.setText(mVideoList.get(i).getDate());
         postRowViewHolder.mText.setText(mVideoList.get(i).getText());
-        if(mVideoList.get(i).getUser() != null)     // For debugging
-            postRowViewHolder.mDisplayName.setText(mVideoList.get(i).getUser().getUsername());
+
+        // TODO: 
+        //postRowViewHolder.mDisplayName.setText(mVideoList.get(i).getUser().getUsername());
     }
 
     @Override

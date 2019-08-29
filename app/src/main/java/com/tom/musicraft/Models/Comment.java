@@ -6,7 +6,7 @@ public class Comment {
 
     private String mId;
     private String mUserId;
-    private User mAuthor; // will contain data of user created comment
+//    private User mAuthor; // will contain data of user created comment
     private String mText; // actual comment text
     private String mCreationDate;
     private Timestamp lastUpdate;
@@ -48,13 +48,13 @@ public class Comment {
         this.mUserId = mUserId;
     }
 
-    public User getmAuthor() {
-        return mAuthor;
-    }
-
-    public void setmAuthor(User mAuthor) {
-        this.mAuthor = mAuthor;
-    }
+//    public User getmAuthor() {
+//        return mAuthor;
+//    }
+//
+//    public void setmAuthor(User mAuthor) {
+//        this.mAuthor = mAuthor;
+//    }
 
     public String getmText() {
         return mText;

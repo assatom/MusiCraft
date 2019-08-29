@@ -18,8 +18,6 @@ public class Post
     private String text;
     private String videoUrl;
     private String date;
-    @Ignore
-    private User user;
     private String userID;
 
 
@@ -68,13 +66,13 @@ public class Post
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public String getUserID() {
         return userID;

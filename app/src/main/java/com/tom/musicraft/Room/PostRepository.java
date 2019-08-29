@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.tom.musicraft.Models.Post;
-import com.tom.musicraft.Models.User;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class PostRepository {
 //    private UserDao mUserDao;
 //    private CommentDao mCommentDao;
     private LiveData<List<Post>> mAllPosts;
-    private LiveData<List<User>> mAllUsers;
+//    private LiveData<List<User>> mAllUsers;
 
     public PostRepository(Application application) {
         PostRoomDatabase db = PostRoomDatabase.getDatabase(application);
@@ -32,9 +31,9 @@ public class PostRepository {
     public LiveData<List<Post>> getAllPosts() {
         return mAllPosts;
     }
-    public LiveData<List<User>> getAllUsers() {
-        return mAllUsers;
-    }
+//    public LiveData<List<User>> getAllUsers() {
+//        return mAllUsers;
+//    }
 
 //    public LiveData<List<Post>> getAllPostsByUserId(String userId){     // Will be uesed in porfile
 //        return mPostDao.getAllPostsByUserId(userId);

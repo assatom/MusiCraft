@@ -23,7 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tom.musicraft.Adapters.UserAdapter;
-import com.tom.musicraft.Models.User;
 import com.tom.musicraft.Models.UserAccountSettings;
 import com.tom.musicraft.R;
 
