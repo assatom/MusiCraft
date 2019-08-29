@@ -33,6 +33,11 @@ import com.tom.musicraft.Post.PostViewModel;
 import com.tom.musicraft.R;
 import com.tom.musicraft.Services.FirebaseService;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,6 +46,7 @@ import butterknife.Unbinder;
 
 public class AddPostFragment extends Fragment {
 
+    public static String pattern = "MM/dd/yyyy HH:mm:ss";
     private static final String TAG = "AddPostFragment";
     @Nullable
     @BindView(R.id.videodescription)
@@ -111,12 +117,19 @@ public class AddPostFragment extends Fragment {
         String userID = FirebaseService.getInstance().getCurrentUser().getUid();
 
         /// TODO edit youtube link !
-        String url = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/Qopx44kAmdE\" frameborder=\"0\" allowfullscreen></iframe>";
+        String url = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/watch?v=tmtCrvCad3E\" frameborder=\"0\" allowfullscreen></iframe>";
 
         // TODO get DateTime.Now + user / User id
+        DateFormat df = new SimpleDateFormat(pattern);
+
+        // Get the today date using Calendar object.
+        Date today = Calendar.getInstance().getTime();
+        // Using DateFormat format method we can create a string
+        // representation of a date with the defined format.
+        String todayAsString = df.format(today);
         Post p = new Post(videodesciption.getText().toString(),
                 generateVideoURL(videodeurl.getText().toString()),
-                "01/01/2019",
+                todayAsString,
                 userID);
 
         // Replaced:  mFirebaseService.addPost(p);
