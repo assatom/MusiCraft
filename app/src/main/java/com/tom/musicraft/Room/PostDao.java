@@ -19,15 +19,15 @@ public interface PostDao
     @Query("DELETE FROM Posts")
     void deleteAll();
 
-//    @Query("SELECT * from post_table INNER JOIN user_table ON mAuthorId = user_id")
+///   @Query("SELECT * from post_table INNER JOIN user_table ON mAuthorId = user_id")
     @Query("SELECT * from Posts")
     LiveData<List<Post>> getAllPosts();
 
     @Query("SELECT * from Posts WHERE post_ID=:postId")
     LiveData<Post> getPostById(String postId);
 
-//    @Query("SELECT * from post_table INNER JOIN user_table ON userID = user_id WHERE userID =:i_userID ")
-//    LiveData<List<Post>> getAllPostsByUserId(String i_userID);
+    @Query("SELECT * from Posts INNER JOIN Users ON userID = user_ID WHERE userID =:i_userID ")
+    LiveData<List<Post>> getAllPostsByUserId(String i_userID);
 
     @Query("DELETE FROM Posts WHERE post_ID=:postId")
     void delete(String postId);

@@ -1,9 +1,18 @@
 package com.tom.musicraft.Models;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.firebase.Timestamp;
 
+@Entity(tableName = "Comments")
 public class Comment {
 
+    @PrimaryKey     //(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "comment_ID")
     private String mId;
     private String mUserId;
 //    private User mAuthor; // will contain data of user created comment
@@ -16,10 +25,11 @@ public class Comment {
         // Need empty ctor for deserialization from DB
     }
 
-    public void setId(String id) {
+    public void setId(@NonNull String id) {
         this.mId = id;
     }
 
+    @NonNull
     public String getId()
     {
         return this.mId;
