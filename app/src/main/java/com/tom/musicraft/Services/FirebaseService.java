@@ -25,6 +25,7 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.tom.musicraft.Models.Comment;
 import com.tom.musicraft.Models.Post;
 import com.tom.musicraft.Models.UserAccountSettings;
 import com.tom.musicraft.R;
@@ -127,14 +128,16 @@ public class FirebaseService
                                 addNewUser(email, username);
                                 Log.d(TAG, "onComplete: Authstate changed: " + userID);
                             }
-
                     }
                 });
     }
 
-
     public LiveData<List<Post>> getAllPosts() {
         return mPostRepository.getAllPosts();
+    }
+
+    public LiveData<List<Comment>> getAllCommentsbyPostID(String postID) {
+        return mPostRepository.getAllCommentsbyPostID(postID);
     }
 
     private  void getAllPosts(Timestamp from) // TODO implement
@@ -160,12 +163,25 @@ public class FirebaseService
 
     }
 
+    public void updateComment(final Comment comment){    /// TODO implement
+
+    }
+
     public void addPost(final Post post){
 
         mPostRepository.insert(post);       // Local DB
 
         DatabaseReference usersRef = myRef.child("Posts").child(post.getPostID());
         usersRef.setValue(post);
+    }
+
+
+    public void addComment(final Comment comment){
+
+        mPostRepository.insert(comment);       // Local DB
+
+        DatabaseReference commentRef = myRef.child("Comments").child(comment.getmId());
+        commentRef.setValue(comment);
     }
 
     public void deletePost(String postId){      // TODO implement

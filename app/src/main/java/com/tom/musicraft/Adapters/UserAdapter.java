@@ -26,7 +26,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.viewHolder>{
 
     private Context mContext;
     private List<UserAccountSettings> mUsers;
-
     private FirebaseUser firebaseUser;
     private FirebaseService mfirebaseService;
 

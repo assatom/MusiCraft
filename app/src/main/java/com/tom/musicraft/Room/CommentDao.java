@@ -16,12 +16,9 @@ public interface CommentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Comment comment);
 
-    @Query("DELETE FROM Comments")
-    void deleteAll();
-
     @Query("SELECT * from Comments " +
-            " INNER JOIN Users ON mUserId=user_ID WHERE mPostId=:postId")
-    LiveData<List<Comment>> getAllCommentByPostId(String postId);
+            " INNER JOIN Posts ON mUserId=userID WHERE mPostId=:postId")
+    LiveData<List<Comment>> getAllCommentsByPostId(String postId);
 
     @Query("DELETE FROM Comments WHERE comment_ID=:commentId")
     void delete(String commentId);

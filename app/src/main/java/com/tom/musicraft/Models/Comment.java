@@ -18,7 +18,7 @@ public class Comment {
 //    private User mAuthor; // will contain data of user created comment
     private String mText; // actual comment text
     private String mCreationDate;
-    private Timestamp lastUpdate;
+    private String lastUpdate;
     private String mPostId;
 
     public Comment(){
@@ -50,11 +50,11 @@ public class Comment {
         this.mId = mId;
     }
 
-    public String getmUserId() {
+    public String getUserId() {
         return mUserId;
     }
 
-    public void setmUserId(String mUserId) {
+    public void setUserId(String mUserId) {
         this.mUserId = mUserId;
     }
 
@@ -66,35 +66,35 @@ public class Comment {
 //        this.mAuthor = mAuthor;
 //    }
 
-    public String getmText() {
+    public String getText() {
         return mText;
     }
 
-    public void setmText(String mText) {
+    public void setText(String mText) {
         this.mText = mText;
     }
 
-    public String getmCreationDate() {
+    public String getCreationDate() {
         return mCreationDate;
     }
 
-    public void setmCreationDate(String mCreationDate) {
+    public void setCreationDate(String mCreationDate) {
         this.mCreationDate = mCreationDate;
     }
 
-    public Timestamp getLastUpdate() {
+    public String getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Timestamp lastUpdate) {
+    public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
-    public String getmPostId() {
+    public String getPostId() {
         return mPostId;
     }
 
-    public void setmPostId(String mPostId) {
+    public void setPostId(String mPostId) {
         this.mPostId = mPostId;
     }
 }
