@@ -36,9 +36,10 @@ public class PostRepository {
 //        return mAllUsers;
 //    }
 
-//    public LiveData<List<Post>> getAllPostsByUserId(String userId){     // Will be uesed in porfile
-//        return mPostDao.getAllPostsByUserId(userId);
-//    }
+    public LiveData<List<Post>> getAllPostsByUserId(String userId){
+        return mPostDao.getAllPostsByUserId(userId);
+    }
+
     public LiveData<Post> getPostById(String  postId){
         return mPostDao.getPostById(postId);
     }

@@ -26,7 +26,7 @@ public interface PostDao
     @Query("SELECT * from Posts WHERE post_ID=:postId")
     LiveData<Post> getPostById(String postId);
 
-    @Query("SELECT * from Posts INNER JOIN Users ON userID = user_ID WHERE userID =:i_userID ")
+    @Query("SELECT * from Posts Where userID = :i_userID")
     LiveData<List<Post>> getAllPostsByUserId(String i_userID);
 
     @Query("DELETE FROM Posts WHERE post_ID=:postId")
