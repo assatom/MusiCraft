@@ -40,6 +40,18 @@
                         android:id="@+id/profileMenu"
                         android:src="@drawable/ic_ellipses"/>
 
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_toStartOf="@+id/profileMenu"
+                        android:layout_toLeftOf="@+id/profileMenu"
+                        android:text="Logout:" />
+
                 </RelativeLayout>
 
 
@@ -202,22 +214,30 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/relLayout3"
+                android:id="@+id/profile_posts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linLayout2"
                 android:layout_marginBottom="50dp"
                 >
-
-                <GridView
-                    android:id="@+id/gridView"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/profile_postsList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:horizontalSpacing="1dp"
                     android:numColumns="3"
                     android:stretchMode="columnWidth"
-                    android:verticalSpacing="1dp"/>
+                    />
+                <!--<GridView-->
+                    <!--android:id="@+id/gridView"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:horizontalSpacing="1dp"-->
+                    <!--android:numColumns="3"-->
+                    <!--android:stretchMode="columnWidth"-->
+                    <!--android:verticalSpacing="1dp"/>-->
 
             </RelativeLayout>
         </RelativeLayout>

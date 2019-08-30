@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.tom.musicraft.Home.HomeActivity;
 import com.tom.musicraft.Main.MainActivity;
 import com.tom.musicraft.R;
+import com.tom.musicraft.Services.FirebaseService;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -119,7 +120,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                         Intent intent = new Intent(LoginActivity.this, /*HomeActivity.class*/ MainActivity.class);
                                         startActivity(intent);
-
+                                        mProgressBar.setVisibility(View.GONE);
+                                        mPleaseWait.setVisibility(View.GONE);
 
 //                                        try{
 //                                            if(CHECK_IF_VERIFIED){
@@ -166,8 +168,9 @@ public class LoginActivity extends AppCompatActivity {
          /*
          If the user is logged in then navigate to HomeActivity and call 'finish()'
           */
-        //mAuth.signOut();
-        if(mAuth.getCurrentUser() != null){
+//        mAuth.signOut();
+//        if(mAuth.getCurrentUser() != null){
+        if(FirebaseService.getInstance().getCurrentUser() != null){
             Intent intent = new Intent(LoginActivity.this, /*HomeActivity.class*/ MainActivity.class);
             startActivity(intent);
             finish();

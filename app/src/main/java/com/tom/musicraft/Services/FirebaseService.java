@@ -137,6 +137,10 @@ public class FirebaseService
         return mPostRepository.getAllPosts();
     }
 
+    public LiveData<List<Post>> getAllPostsByUserId(String id) {
+       return mPostRepository.getAllPostsByUserId(id);
+    }
+
     private  void getAllPosts(Timestamp from) // TODO implement
     {
         /*listenerRegistration = postRef.whereGreaterThan("lastUpdate", from).addSnapshotListener((snapshot, e) -> {
@@ -175,6 +179,11 @@ public class FirebaseService
     public FirebaseUser getCurrentUser(){
         return mAuth.getCurrentUser();
 
+    }
+
+    public void logout()
+    {
+        mAuth.signOut();
     }
 
 }

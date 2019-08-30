@@ -72,7 +72,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         postRowViewHolder.mDate.setText(mVideoList.get(i).getDate());
         postRowViewHolder.mText.setText(mVideoList.get(i).getText());
 
-        // TODO: 
+        // TODO:
         //postRowViewHolder.mDisplayName.setText(mVideoList.get(i).getUser().getUsername());
     }
 

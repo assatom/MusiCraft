@@ -21,4 +21,9 @@ public class PostsListViewModel extends ViewModel
     {
         return mFirebaseService.getAllPosts();
     }
+
+    public LiveData<List<Post>> getAllPostsByUser(String id)
+    {
+        return mFirebaseService.getAllPostsByUserId(id);
+    }
 }
