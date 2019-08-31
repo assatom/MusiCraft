@@ -33,6 +33,7 @@
             android:name=".Profile.ProfileActivity"
             android:launchMode="singleInstance" />
 
+
     </application>
 
 </manifest>

@@ -15,10 +15,17 @@ public class UserAccountSettings
 
     private long followers;
     private long following;
-    //    private String profile_photo;
+    private String profile_photo;
     private String email;
     private String userName;
 
+    public void setProfile_photo(String profile_photo) {
+        this.profile_photo = profile_photo;
+    }
+
+    public String getProfile_photo() {
+        return profile_photo;
+    }
 
     public UserAccountSettings(long followers, long following, String email , String user_id, String userName)
     {
