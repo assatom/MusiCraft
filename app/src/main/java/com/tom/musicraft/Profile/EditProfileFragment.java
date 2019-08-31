@@ -2,18 +2,25 @@ package com.tom.musicraft.Profile;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
-import android.content.Intent;
+import android.content.Context;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -25,6 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -32,48 +40,57 @@ import com.google.firebase.storage.StorageTask;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+import com.tom.musicraft.Adapters.CommentsListAdapter;
+import com.tom.musicraft.Adapters.UserAdapter;
 import com.tom.musicraft.Models.UserAccountSettings;
 import com.tom.musicraft.R;
 import com.tom.musicraft.Services.FirebaseService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class EditProfileFragment extends Fragment {
 
     ImageView close, image_profile;
     TextView save, pp_change;
-    MaterialEditText fullname, username, bio;
+    MaterialEditText fullname;//, username, bio;
 
     FirebaseUser firebaseUser;
+    private FirebaseService mfirebaseService;
+    private UserAdapter userAdapter;
+    private List<UserAccountSettings> mUsers;
 
     private Uri mImageUri;
     private StorageTask uploadTask;
     StorageReference storageRef;
+    private Context mContext;
+    View view;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        close = findViewById(R.id.close);
-        image_profile = findViewById(R.id.image_profile);
-        save = findViewById(R.id.save);
-        pp_change = findViewById(R.id.pp_change);
-        fullname = findViewById(R.id.fullname);
-        username = findViewById(R.id.username);
-        bio = findViewById(R.id.bio);
-
+        view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
+        mContext = getContext();
+        close = view.findViewById(R.id.close);
+        image_profile = view.findViewById(R.id.image_profile);
+        save = view.findViewById(R.id.save);
+        pp_change = view.findViewById(R.id.pp_change);
+        fullname = view.findViewById(R.id.fullname);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         storageRef = FirebaseStorage.getInstance().getReference("uploads");
         DatabaseReference reference = FirebaseService.getInstance().getFirebaseDatabase().getReference("Users").child(firebaseUser.getUid());
+        userAdapter = new UserAdapter(mContext, mUsers);
+
+        readUsers();
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserAccountSettings user = dataSnapshot.getValue(UserAccountSettings.class);
                 fullname.setText(user.getUserName());
-                //username.setText(user.get());
-                //bio.setText(user.getBio());
-                Glide.with(getApplicationContext()).load(user.getProfile_photo()).into(image_profile);
+                Glide.with(mContext.getApplicationContext()).load(user.getProfile_photo()).into(image_profile);
             }
 
             @Override
@@ -85,7 +102,7 @@ public class EditProfileActivity extends AppCompatActivity {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                backToUserProfile();
             }
         });
 
@@ -93,8 +110,8 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 CropImage.activity().setAspectRatio(1,1)
-                        .setCropShape(CropImageView.CropShape.OVAL)
-                        .start(EditProfileActivity.this);
+                        .setCropShape(CropImageView.CropShape.OVAL);
+                backToUserProfile();
             }
         });
 
@@ -102,32 +119,56 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateProfile(fullname.getText().toString());
-                       // username.getText().toString(),
-                       // bio.getText().toString());
+
+                CropImage.ActivityResult result = CropImage.getActivityResult(getActivity().getIntent());
+                mImageUri = result.getUri();
+
+                uploadImage();
             }
-
-
         });
+
+        return view;
     }
 
-    private void updateProfile(String fullname/*, String username, String bio*/) {
+    private UserAccountSettings getCurrentUser() {
+        firebaseUser = mfirebaseService.getCurrentUser();
+        UserAccountSettings user = null;
+        for(UserAccountSettings _user : mUsers){
+            if(_user.getUser_id() == mfirebaseService.getCurrentUser().getUid())
+                user = _user;
+        }
+
+        return user;
+    }
+
+    private void backToUserProfile() {
+        UserAccountSettings user = getCurrentUser();
+
+        try {
+            ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new ProfileFragment(user)).commit();
+        }
+        catch (Exception ex){
+            Log.d("EditProfileFragment", "Fail to get user, close failed.");
+        }
+    }
+
+    private void updateProfile(String fullname) {
         DatabaseReference reference = FirebaseService.getInstance().getFirebaseDatabase().getReference("Users").child(firebaseUser.getUid());
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("fullname", fullname);
-        //hashMap.put("username", username);
-        //hashMap.put("bio", bio);
+        hashMap.put("userName", fullname);
 
         reference.updateChildren(hashMap);
     }
 
     private String getFileExtention(Uri uri){
-        ContentResolver contentResolver = getContentResolver();
+        ContentResolver contentResolver = mContext.getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
     private void uploadImage() {
-        final ProgressDialog pd = new ProgressDialog(this);
+        final ProgressDialog pd = new ProgressDialog(mContext);
         pd.setMessage("Uploading");
         pd.show();
 
@@ -153,36 +194,45 @@ public class EditProfileActivity extends AppCompatActivity {
 
                         DatabaseReference reference = FirebaseService.getInstance().getFirebaseDatabase().getReference("Users").child(firebaseUser.getUid());
                         HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("imageurl", MyUrl);
+                        hashMap.put("profile_photo", MyUrl);
 
                         reference.updateChildren(hashMap);
                         pd.dismiss();
                     } else{
-                        Toast.makeText(EditProfileActivity.this,"Failed", Toast.LENGTH_SHORT).show();
+                        Log.d("EditProfileFragment","Failed.");
+                       // Toast.makeText(EditProfileActivity.this,"Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(EditProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("EditProfileFragment","Failed.");
+                    //Toast.makeText(EditProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
-            Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show();
+            Log.d("EditProfileFragment","Failed.");
+            //Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show();
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            mImageUri = result.getUri();
+    private void readUsers() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mUsers.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    UserAccountSettings user = snapshot.getValue(UserAccountSettings.class);
+                    mUsers.add(user);
+                }
+                userAdapter.notifyDataSetChanged();
+            }
 
-            uploadImage();
-        }
-        else
-            Toast.makeText(this, "Something gone wrong!", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
-
 }
