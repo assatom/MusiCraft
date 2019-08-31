@@ -28,8 +28,8 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.auth.User;
-import com.tom.musicraft.Models.Comment;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.firestore.auth.User;import com.tom.musicraft.Models.Comment;
 import com.tom.musicraft.Models.Post;
 import com.tom.musicraft.Models.UserAccountSettings;
 import com.tom.musicraft.R;
@@ -264,4 +264,7 @@ public class FirebaseService
         mAuth.signOut();
     }
 
+    public FirebaseDatabase getFirebaseDatabase() {
+        return this.mFirebaseDatabase;
+    }
 }
