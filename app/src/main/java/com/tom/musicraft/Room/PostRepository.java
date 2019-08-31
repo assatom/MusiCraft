@@ -63,21 +63,21 @@ public class PostRepository {
 //    public void insert(User user) {
 //        new insertUserAsyncTask(mUserDao).execute(user);
 //    }
-    public void insert(Comment comment) {
-        new insertCommandAsyncTask(mCommentDao).execute(comment);
-    }
+//    public void insert(Comment comment) {
+//        new insertCommandAsyncTask(mCommentDao).execute(comment);
+//    }
 
     public void deletePost(String postId) {
         new deletePostAsyncTask(mPostDao).execute(postId);
     }
 
-    public void deleteComment(String commentId){
-        new deleteCommentAsyncTask(mCommentDao).execute(commentId);
-    }
+//    public void deleteComment(String commentId){
+//        new deleteCommentAsyncTask(mCommentDao).execute(commentId);
+//    }
 
     public LiveData<List<Comment>> getAllCommentsbyPostID(String postId) {
-        return mCommentDao.getAllCommentsByPostId(postId);
-
+        //return mCommentDao.getAllCommentsByPostId(postId);
+return null;
     }
 
     private static class insertPostAsyncTask extends AsyncTask<Post, Void, Void> {
@@ -111,35 +111,35 @@ public class PostRepository {
     }
 
 
-    private static class insertCommandAsyncTask extends AsyncTask<Comment, Void, Void> {
-
-        private CommentDao mAsyncTaskDao;
-
-        insertCommandAsyncTask (CommentDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Comment... params) {
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
-    }
-
-    private static class deleteCommentAsyncTask extends AsyncTask<String, Void, Void> {
-
-        private CommentDao mAsyncTaskDao;
-
-        public deleteCommentAsyncTask(CommentDao  dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final String... params) {
-            mAsyncTaskDao.delete(params[0]);
-            return null;
-        }
-    }
+//    private static class insertCommandAsyncTask extends AsyncTask<Comment, Void, Void> {
+//
+//        private CommentDao mAsyncTaskDao;
+//
+//        insertCommandAsyncTask (CommentDao dao) {
+//            mAsyncTaskDao = dao;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(final Comment... params) {
+//            mAsyncTaskDao.insert(params[0]);
+//            return null;
+//        }
+//    }
+//
+//    private static class deleteCommentAsyncTask extends AsyncTask<String, Void, Void> {
+//
+//        private CommentDao mAsyncTaskDao;
+//
+//        public deleteCommentAsyncTask(CommentDao  dao) {
+//            mAsyncTaskDao = dao;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(final String... params) {
+//            mAsyncTaskDao.delete(params[0]);
+//            return null;
+//        }
+//    }
 
 
 //    private static class insertUserAsyncTask extends AsyncTask<User, Void, Void> {

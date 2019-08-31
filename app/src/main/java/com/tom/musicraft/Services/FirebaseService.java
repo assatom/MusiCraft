@@ -183,7 +183,7 @@ public class FirebaseService
 
     public void addComment(final Comment comment){
 
-        mPostRepository.insert(comment);       // Local DB
+//        mPostRepository.insert(comment);       // Local DB
 
         DatabaseReference commentRef = myRef.child("Comments").child(comment.getmId());
         commentRef.setValue(comment);

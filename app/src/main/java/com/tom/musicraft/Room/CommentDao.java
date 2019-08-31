@@ -13,18 +13,19 @@ import java.util.List;
 @Dao
 public interface CommentDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Comment comment);
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    void insert(Comment comment);
+//
+////    @Query("SELECT * from Comments " +
+////            " INNER JOIN Posts ON mUserId=userID WHERE mPostId=:postId")
+//    @Query("SELECT * from Comments WHERE mPostId=:postId")
+//    LiveData<List<Comment>> getAllCommentsByPostId(String postId);
+//
+//    @Query("DELETE FROM Comments WHERE comment_ID=:commentId")
+//    void delete(String commentId);
 
-    @Query("SELECT * from Comments " +
-            " INNER JOIN Posts ON mUserId=userID WHERE mPostId=:postId")
-    LiveData<List<Comment>> getAllCommentsByPostId(String postId);
 
-    @Query("DELETE FROM Comments WHERE comment_ID=:commentId")
-    void delete(String commentId);
-
-
-    @Query("SELECT * from Comments" +
-            " INNER JOIN Users ON mUserId=user_ID WHERE comment_ID=:commentId")
-    LiveData<Comment> getCommentById(String commentId);
+//    @Query("SELECT * from Comments" +
+//            " INNER JOIN Users ON mUserId=user_ID WHERE comment_ID=:commentId")
+//    LiveData<Comment> getCommentById(String commentId);
 }

@@ -120,46 +120,46 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
             mWebView.setWebChromeClient(new WebChromeClient());
             mView = itemView;
 
-            mLikeCb = itemView.findViewById(R.id.post_row_like_cb);
-            mComment = itemView.findViewById(R.id.post_row_comment_bt);
+//            mLikeCb = itemView.findViewById(R.id.post_row_like_cb);
+//            mComment = itemView.findViewById(R.id.post_row_comment_bt);
 //            mEdit = itemView.findViewById(R.id.post_row_edit_bt);
 //            mDelete = itemView.findViewById(R.id.post_row_delete_bt);
 
-            mDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int index = getAdapterPosition();
-                    if (deleteListener != null) {
-                        if (index != RecyclerView.NO_POSITION) {
-                            deleteListener.onClick(index);
-                        }
-                    }
-                }
-            });
-
-            mEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int index = getAdapterPosition();
-                    if (editListener != null) {
-                        if (index != RecyclerView.NO_POSITION) {
-                            editListener.onClick(index);
-                        }
-                    }
-                }
-            });
-
-            mComment.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int index = getAdapterPosition();
-                    if (listener != null) {
-                        if (index != RecyclerView.NO_POSITION) {
-                            listener.onClick(index);
-                        }
-                    }
-                }
-            });
+//            mDelete.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int index = getAdapterPosition();
+//                    if (deleteListener != null) {
+//                        if (index != RecyclerView.NO_POSITION) {
+//                            deleteListener.onClick(index);
+//                        }
+//                    }
+//                }
+//            });
+//
+//            mEdit.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int index = getAdapterPosition();
+//                    if (editListener != null) {
+//                        if (index != RecyclerView.NO_POSITION) {
+//                            editListener.onClick(index);
+//                        }
+//                    }
+//                }
+//            });
+//
+//            mComment.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int index = getAdapterPosition();
+//                    if (listener != null) {
+//                        if (index != RecyclerView.NO_POSITION) {
+//                            listener.onClick(index);
+//                        }
+//                    }
+//                }
+//            });
         }
     }
 
