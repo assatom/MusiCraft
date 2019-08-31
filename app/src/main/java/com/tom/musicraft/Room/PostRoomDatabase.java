@@ -13,7 +13,10 @@ import com.tom.musicraft.Models.Comment;
 import com.tom.musicraft.Models.Post;
 import com.tom.musicraft.Models.UserAccountSettings;
 
-@Database(entities = {Post.class/*, Comment.class, UserAccountSettings.class*/}, version = 5)
+// Reference: https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#3
+
+
+@Database(entities = {Post.class,/* Comment.class, UserAccountSettings.class*/}, version = 5)
 public abstract class PostRoomDatabase extends RoomDatabase {
     public abstract PostDao postDao();
     public abstract CommentDao commentsDao();     /// TODO

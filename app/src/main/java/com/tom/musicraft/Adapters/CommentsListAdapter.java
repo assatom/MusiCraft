@@ -30,7 +30,7 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
     public CommentsListAdapter(List<Comment> data) {
         mCommentsList = data;
     }
-
+    public CommentsListAdapter(){}
     public interface OnItemClickListener{
         void onClick(int index);
     }
@@ -64,14 +64,14 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
     @Override
     public void onBindViewHolder(@NonNull CommentRowViewHolder commentRowViewHolder, int i) {
 
-        //Comment comment = mCommentsList.get(i);
+        Comment comment = mCommentsList.get(i);
         // TODO : set name - search in db the userName by the userID from comment
-        commentRowViewHolder.mName.setText(mCommentsList.get(i).getUserId());
+        commentRowViewHolder.mName.setText(comment.getUserName());
         // TODO : Check if we need the creation date or the last update
-        commentRowViewHolder.mDate.setText(mCommentsList.get(i).getCreationDate());
-        commentRowViewHolder.mText.setText(mCommentsList.get(i).getText());
+        commentRowViewHolder.mDate.setText(comment.getCreationDate());
+        commentRowViewHolder.mText.setText(comment.getText());
         // TODO : Set image to user
-        //commentRowViewHolder.mUserImage.setImageBitmap(mCommentsList.get(i).getmText());
+        //commentRowViewHolder.mUserImage.setImageBitmap(comment.getmText());
 
 
         //commentRowViewHolder.bind(comment);
@@ -94,7 +94,9 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
         TextView mText;
         ImageButton mEdit;
         ImageButton mDelete;
+        ImageButton mSend;
         View mView;
+
         public CommentRowViewHolder(@NonNull final View itemView,
                                     final OnItemClickListener listener,
                                     final OnEditClickListener editListener,
@@ -106,31 +108,41 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
             mText = itemView.findViewById(R.id.comment_row_text_tv);
             mEdit = itemView.findViewById(R.id.comment_row_edit_bt);
             mDelete = itemView.findViewById(R.id.comment_row_delete_bt);
+            mSend = itemView.findViewById(R.id.comments_send_btn);
+
             mView = itemView;
 
-            mDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int index = getAdapterPosition();
-                    if (deleteListener != null){
-                        if (index != RecyclerView.NO_POSITION) {
-                            deleteListener.onClick(index);
-                        }
-                    }
-                }
-            });
+//            mSend.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Log.d("Adasdadad","asas");
+//                }
+//            });
 
-            mEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int index = getAdapterPosition();
-                    if (editListener != null){
-                        if (index != RecyclerView.NO_POSITION) {
-                            editListener.onClick(index);
-                        }
-                    }
-                }
-            });
+
+//            mDelete.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int index = getAdapterPosition();
+//                    if (deleteListener != null){
+//                        if (index != RecyclerView.NO_POSITION) {
+//                            deleteListener.onClick(index);
+//                        }
+//                    }
+//                }
+//            });
+//
+//            mEdit.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int index = getAdapterPosition();
+//                    if (editListener != null){
+//                        if (index != RecyclerView.NO_POSITION) {
+//                            editListener.onClick(index);
+//                        }
+//                    }
+//                }
+//            });
         }
 
       //  public void bind(Comment _comment){

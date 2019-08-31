@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/comment_user_img"
         android:layout_width="50dp"
         android:layout_height="50dp"

@@ -20,7 +20,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="148dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.485"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +96,7 @@
         <WebView
             android:id="@+id/post_youtube"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="200dp"
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/post_text"
             tools:layout_editor_absoluteX="16dp"></WebView>
@@ -111,7 +111,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/post_youtube"
             app:layout_constraintVertical_bias="0.51"
-            app:srcCompat="@drawable/ic_comment" />
+            />
+        <!--app:srcCompat="@drawable/ic_comment"-->
 
         <CheckBox
             android:id="@+id/post_row_like_cb"
@@ -127,18 +128,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/post_youtube" />
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_marginTop="16dp"
-                android:layout_weight="4"
+            <!--<View-->
+                <!--android:id="@+id/view"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="4dp"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:layout_weight="4"-->
+                <!--android:background="#928C8C"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/post_row_comment_bt"-->
+                <!--tools:layout_editor_absoluteX="16dp"-->
+                <!--/>-->
+        <!--<ScrollView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="0dp">-->
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/post_row_comment_bt"
+    android:layout_marginTop="16dp"
+    >
+            <include
+                layout="@layout/fragment_comments"
+                android:id="@+id/post_commentsList"
                 android:background="#928C8C"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/post_row_comment_bt"
+
                 tools:layout_editor_absoluteX="16dp" />
-
-
+</ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

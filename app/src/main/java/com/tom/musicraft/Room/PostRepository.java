@@ -26,7 +26,6 @@ public class PostRepository {
 //        mUserDao= db.userDao();
 //        mAllUsers = mUserDao.getAllUsers();
         mAllPosts = mPostDao.getAllPosts();
-
     }
 
     public LiveData<List<Post>> getAllPosts() {
@@ -76,8 +75,8 @@ public class PostRepository {
 //    }
 
     public LiveData<List<Comment>> getAllCommentsbyPostID(String postId) {
-        //return mCommentDao.getAllCommentsByPostId(postId);
-return null;
+//        return mCommentDao.getAllCommentsByPostId(postId);
+        return null;
     }
 
     private static class insertPostAsyncTask extends AsyncTask<Post, Void, Void> {

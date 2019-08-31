@@ -10,76 +10,62 @@ import com.google.firebase.Timestamp;
 @Entity(tableName = "Comments")
 public class Comment {
 
-    @PrimaryKey     //(autoGenerate = true)
+    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "comment_ID")
-    private String mId;
-    private String mUserId;
-//    private User mAuthor; // will contain data of user created comment
-    private String mText; // actual comment text
-    private String mCreationDate;
+    private String Id;
+    private String UserId;
+    private String Text; // actual comment text
+    private String CreationDate;
     private String lastUpdate;
-    private String mPostId;
+    private String PostId;
+    private String UserName;
+
 
     public Comment(){
         // Need empty ctor for deserialization from DB
     }
 
-    public void setId(@NonNull String id) {
-        this.mId = id;
+    public Comment(String text, String creationDate, String userId, String userName, String postId){
+        this.Id = java.util.UUID.randomUUID().toString();
+        this.Text = text;
+        this.CreationDate = creationDate;
+        this.UserId = userId;
+        this.UserName = userName;
+        this.PostId = postId;
     }
 
     @NonNull
-    public String getId()
-    {
-        return this.mId;
+    public String getId() {
+        return Id;
     }
 
-    public Comment(String text, String creationDate, String userId){
-        this.mId = java.util.UUID.randomUUID().toString();
-        this.mText = text;
-        this.mCreationDate = creationDate;
-        this.mUserId = userId;
-    }
-
-    public String getmId() {
-        return mId;
-    }
-
-    public void setmId(String mId) {
-        this.mId = mId;
+    public void setId(@NonNull String id) {
+        Id = id;
     }
 
     public String getUserId() {
-        return mUserId;
+        return UserId;
     }
 
-    public void setUserId(String mUserId) {
-        this.mUserId = mUserId;
+    public void setUserId(String userId) {
+        UserId = userId;
     }
-
-//    public User getmAuthor() {
-//        return mAuthor;
-//    }
-//
-//    public void setmAuthor(User mAuthor) {
-//        this.mAuthor = mAuthor;
-//    }
 
     public String getText() {
-        return mText;
+        return Text;
     }
 
-    public void setText(String mText) {
-        this.mText = mText;
+    public void setText(String text) {
+        Text = text;
     }
 
     public String getCreationDate() {
-        return mCreationDate;
+        return CreationDate;
     }
 
-    public void setCreationDate(String mCreationDate) {
-        this.mCreationDate = mCreationDate;
+    public void setCreationDate(String creationDate) {
+        CreationDate = creationDate;
     }
 
     public String getLastUpdate() {
@@ -91,10 +77,18 @@ public class Comment {
     }
 
     public String getPostId() {
-        return mPostId;
+        return PostId;
     }
 
-    public void setPostId(String mPostId) {
-        this.mPostId = mPostId;
+    public void setPostId(String postId) {
+        PostId = postId;
+    }
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String userName) {
+        UserName = userName;
     }
 }

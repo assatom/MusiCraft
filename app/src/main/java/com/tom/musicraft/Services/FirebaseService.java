@@ -18,13 +18,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.auth.User;
 import com.tom.musicraft.Models.Comment;
 import com.tom.musicraft.Models.Post;
 import com.tom.musicraft.Models.UserAccountSettings;
@@ -68,7 +72,56 @@ public class FirebaseService
     public void init(Application application)
     {
         mPostRepository = new PostRepository(application);
+        loadDataFromFirebase();
     }
+
+    List<Comment> mComments = new ArrayList<>();
+    List<UserAccountSettings> mUsers = new ArrayList<>();
+    private void loadDataFromFirebase() {
+        DatabaseReference postsReference = this.mFirebaseDatabase.getReference("Posts");
+        postsReference .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Post post = snapshot.getValue(Post.class);
+                    mPostRepository.insert(post);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+
+        DatabaseReference commentsReference = this.mFirebaseDatabase.getReference("Comments");
+        commentsReference .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Comment comment= snapshot.getValue(Comment.class);
+                    mComments.add(comment);
+                   // mPostRepository.insert(comment);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+
+        DatabaseReference usersReference = this.mFirebaseDatabase.getReference("Users");
+        usersReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    UserAccountSettings user = snapshot.getValue(UserAccountSettings.class);
+                    mUsers.add(user);
+                    // mPostRepository.insert(user);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+
+
+    }
+
 
 
     // TODO 1) remove context (consider where we need it)
@@ -141,28 +194,24 @@ public class FirebaseService
         return mPostRepository.getAllCommentsbyPostID(postID);
     }
 
+
+    public List<Comment> getAllCommentsByPostID(String postID)
+    {
+        List<Comment> results = new ArrayList<>();
+        for (Comment comment: mComments)
+        {
+            if(comment.getPostId().equals(postID))
+                results.add(comment);
+        }
+
+        return results;
+    }
+
+
     public LiveData<List<Post>> getAllPostsByUserId(String id) {
        return mPostRepository.getAllPostsByUserId(id);
     }
 
-    private  void getAllPosts(Timestamp from) // TODO implement
-    {
-        /*listenerRegistration = postRef.whereGreaterThan("lastUpdate", from).addSnapshotListener((snapshot, e) -> {
-            if (e != null) {
-                return;
-            }
-            if (snapshot != null && !snapshot.isEmpty()) {
-                List<Post> posts= new ArrayList<>();
-                snapshot.getDocumentChanges().get(0).getDocument().toObject(Post.class);
-                for (DocumentChange docChange : snapshot.getDocumentChanges()) {
-                    posts.add(docChange.getDocument().toObject(Post.class));
-                }
-                Log.d("Tag", "posts size in observer = " + posts.size());
-                posts= snapshot.toObjects(Post.class);
-                listener.updatePosts(posts);
-            }
-        });*/
-    }
 
     public void updatePost(final Post post){    /// TODO implement
 
@@ -185,7 +234,7 @@ public class FirebaseService
 
 //        mPostRepository.insert(comment);       // Local DB
 
-        DatabaseReference commentRef = myRef.child("Comments").child(comment.getmId());
+        DatabaseReference commentRef = myRef.child("Comments").child(comment.getId());
         commentRef.setValue(comment);
     }
 
@@ -193,9 +242,21 @@ public class FirebaseService
 
     }
 
-    public FirebaseUser getCurrentUser(){
+    public FirebaseUser getCurrentUser(){      // TODO with room - shuold provide UserAccountSettings object
         return mAuth.getCurrentUser();
 
+    }
+
+    public UserAccountSettings getCurrentUserAccountSettings()
+    {
+        String currentUserID = getCurrentUser().getUid();
+        for (UserAccountSettings user: mUsers)
+        {
+            if(user.getUser_id().equals(currentUserID))
+                return  user;
+        }
+
+        return null;
     }
 
     public void logout()

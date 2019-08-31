@@ -29,6 +29,7 @@ import com.tom.musicraft.Login.LoginActivity;
 import com.tom.musicraft.Login.RegisterActivity;
 import com.tom.musicraft.Main.MainActivity;
 import com.tom.musicraft.Models.Post;
+import com.tom.musicraft.Models.UserAccountSettings;
 import com.tom.musicraft.Post.PostViewModel;
 import com.tom.musicraft.R;
 import com.tom.musicraft.Services.FirebaseService;
@@ -115,11 +116,9 @@ public class AddPostFragment extends Fragment {
         }
 
         String userID = FirebaseService.getInstance().getCurrentUser().getUid();
+        UserAccountSettings u = FirebaseService.getInstance().getCurrentUserAccountSettings();
+        String userName = FirebaseService.getInstance().getCurrentUserAccountSettings().getUserName();
 
-        /// TODO edit youtube link !
-        String url = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/watch?v=tmtCrvCad3E\" frameborder=\"0\" allowfullscreen></iframe>";
-
-        // TODO get DateTime.Now + user / User id
         DateFormat df = new SimpleDateFormat(pattern);
 
         // Get the today date using Calendar object.
@@ -130,7 +129,7 @@ public class AddPostFragment extends Fragment {
         Post p = new Post(videodesciption.getText().toString(),
                 generateVideoURL(videodeurl.getText().toString()),
                 todayAsString,
-                userID);
+                userID, userName);
 
         // Replaced:  mFirebaseService.addPost(p);
         mViewModel.uploadPost(p);

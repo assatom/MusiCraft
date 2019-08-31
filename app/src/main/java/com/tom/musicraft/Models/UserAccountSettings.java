@@ -17,6 +17,7 @@ public class UserAccountSettings
     private long following;
     //    private String profile_photo;
     private String email;
+
     private String userName;
 
 

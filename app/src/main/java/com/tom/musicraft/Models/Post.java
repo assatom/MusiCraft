@@ -19,17 +19,19 @@ public class Post
     private String videoUrl;
     private String date;
     private String userID;
+    private String userName;
 
 
     public Post(){
         // Need empty ctor for deserialization from DB
     }
 
-    public Post(String text, String videoUrl, String date, String userID) {
+    public Post(String text, String videoUrl, String date, String userID, String userName) {
         this.text = text;
         this.date = date;
         this.videoUrl = videoUrl;
         this.userID = userID;
+        this.userName = userName;
         this.postID = java.util.UUID.randomUUID().toString();
     }
 
@@ -66,7 +68,15 @@ public class Post
         this.date = date;
     }
 
-//    public User getUser() {
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    //    public User getUser() {
 //        return user;
 //    }
 //
