@@ -168,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
          /*
          If the user is logged in then navigate to HomeActivity and call 'finish()'
           */
-//        mAuth.signOut();
+        mAuth.signOut();
 //        if(mAuth.getCurrentUser() != null){
         if(FirebaseService.getInstance().getCurrentUser() != null){
             Intent intent = new Intent(LoginActivity.this, /*HomeActivity.class*/ MainActivity.class);
