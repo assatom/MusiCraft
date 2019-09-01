@@ -50,6 +50,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.5.+'
+    implementation 'com.google.firebase:firebase-storage:19.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
     //Design library for Coordinator Layout and Toolbars
 //    compile 'com.android.support:design:27.0.2'
 //    compile 'com.android.support:appcompat-v7:27.1.1'

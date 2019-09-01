@@ -17,16 +17,9 @@ public class UserAccountSettings
     private long following;
     private String profile_photo;
     private String email;
-
     private String userName;
 
-    public void setProfile_photo(String profile_photo) {
-        this.profile_photo = profile_photo;
-    }
 
-    public String getProfile_photo() {
-        return profile_photo;
-    }
 
     public UserAccountSettings(long followers, long following, String email , String user_id, String userName)
     {
@@ -35,7 +28,7 @@ public class UserAccountSettings
         this.email= email;
         this.user_id = user_id;
         this.userName = userName;
-
+        this.profile_photo ="";
 //        this.posts = posts;
 //        this.profile_photo = profile_photo;
     }
@@ -83,6 +76,15 @@ public class UserAccountSettings
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setProfile_photo(String profile_photo) {
+        this.profile_photo = profile_photo;
+    }
+
+    public String getProfile_photo() {
+        return profile_photo;
+    }
+
 
     @Override
     public String toString() {

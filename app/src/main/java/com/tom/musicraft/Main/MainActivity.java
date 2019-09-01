@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tom.musicraft.Home.HomeFragment;
+import com.tom.musicraft.Profile.EditProfileFragment;
 import com.tom.musicraft.Profile.ProfileFragment;
 import com.tom.musicraft.R;
 import com.tom.musicraft.Search.SearchFragment;
@@ -36,14 +37,12 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.ic_android:
                             selectedFragment = new ProfileFragment();
-//                            SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
-//                            editor.putString("profileid", db.getCurrentUser().getUid());
-//                            editor.apply();
-//                            selectedFragment = new ProfileFragment();
                             break;
                         case R.id.ic_circle:
                             selectedFragment = new AddPostFragment();
-//                            startActivity(new Intent(MainActivity.this, PostActivity.class));
+                            break;
+                        case R.id.ic_alert:
+                            selectedFragment = new EditProfileFragment();
                             break;
                     }
 

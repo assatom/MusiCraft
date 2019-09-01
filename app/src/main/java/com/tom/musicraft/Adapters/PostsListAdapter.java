@@ -1,6 +1,9 @@
 package com.tom.musicraft.Adapters;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +28,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,10 +38,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.tom.musicraft.Home.HomeFragment;
 import com.tom.musicraft.Models.Comment;
 import com.tom.musicraft.Models.Post;
+import com.tom.musicraft.Models.UserAccountSettings;
 import com.tom.musicraft.Post.CommentFragment;
 import com.tom.musicraft.R;
 import com.tom.musicraft.Services.FirebaseService;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -103,7 +110,15 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         postRowViewHolder.mText.setText(mVideoList.get(i).getText());
         postRowViewHolder.mDisplayName.setText(mVideoList.get(i).getUserName());
         postRowViewHolder.mPostId = mVideoList.get(i).getPostID();
-        if(FirebaseService.getInstance().getCurrentUserAccountSettings() != null) {
+
+        UserAccountSettings user = FirebaseService.getInstance().getCurrentUserAccountSettings();
+
+        if(user != null) {
+            if(user.getProfile_photo() != null && !user.getProfile_photo().isEmpty() && fragmentActivity != null) {
+
+                Glide.with(fragmentActivity).load(user.getProfile_photo()).into(postRowViewHolder.mUserImage);
+                //Glide.with(fragmentActivity).load(user.getProfile_photo()).into(postRowViewHolder.mCommentUserImage);
+            }
             postRowViewHolder.mUserId = FirebaseService.getInstance().getCurrentUserAccountSettings().getUser_id();
             postRowViewHolder.mUserName = FirebaseService.getInstance().getCurrentUserAccountSettings().getUserName();
         }
@@ -142,6 +157,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         private RecyclerView mCommentsListView;
         private FragmentActivity mFragmentActivity;
         private TextView mCommentText;
+        private ImageView mCommentUserImage;
 
         void Refresh()
         {
@@ -156,7 +172,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                                  final OnDeleteClickListener deleteListener) {
             super(itemView);
 
-            //   mUserImage = itemView.findViewById(R.id.post_user_img);
+            mUserImage = itemView.findViewById(R.id.post_user_img);
             mDate = itemView.findViewById(R.id.post_date);
             mText = itemView.findViewById(R.id.post_text);
             mDisplayName = itemView.findViewById(R.id.post_display_name);
@@ -171,9 +187,12 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
 
             // Comments
             mCommentText = itemView.findViewById((R.id.comments_edit_text));
+            mCommentUserImage = itemView.findViewById(R.id.comment_user_img);
             mSendBtn = itemView.findViewById(R.id.comments_send_btn);
             mCommentsListView = itemView.findViewById(R.id.comments_list_rv);
             mCommentsListView.setLayoutManager(new LinearLayoutManager(mFragmentActivity));
+
+
 
             List<Comment> commentList = new ArrayList<>(FirebaseService.getInstance().getAllCommentsByPostID(mPostId));
 

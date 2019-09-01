@@ -32,6 +32,9 @@
         <activity
             android:name=".Profile.ProfileActivity"
             android:launchMode="singleInstance" />
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/CropAppTheme"
+            />
 
 
     </application>

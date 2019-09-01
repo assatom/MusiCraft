@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -50,6 +51,7 @@ public class ProfileFragment extends Fragment
     private GridView gridView;
     private Toolbar toolbar;
     private ImageView profileMenu;
+    private ImageView mProfilePhoto;
     private BottomNavigationViewEx bottomNavigationView;
     private RecyclerView mListView;
 
@@ -95,7 +97,7 @@ public class ProfileFragment extends Fragment
         mListView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
 
-        PostsListAdapter adapter = new PostsListAdapter(mPostsList);
+        PostsListAdapter adapter = new PostsListAdapter(mPostsList, this.getActivity());
         mListView.setAdapter(adapter);
 
         mViewModel.getAllPostsByUser(user.getUser_id()).observe(this, new Observer<List<Post>>() {
@@ -114,7 +116,7 @@ public class ProfileFragment extends Fragment
         mDisplayName = (TextView) view.findViewById(R.id.display_name);
         mUsername = (TextView) view.findViewById(R.id.username);
 //        mDescription = (TextView) view.findViewById(R.id.description);
-        //mProfilePhoto = (CircleImageView) findViewById(R.id.profile_photo);
+        mProfilePhoto =  view.findViewById(R.id.profile_photo);
         mFollowers = (TextView) view.findViewById(R.id.tvFollowers);
         mFollowing = (TextView) view.findViewById(R.id.tvFollowing);
 //        mProgressBar = (ProgressBar) findViewById(R.id.profileProgressBar);
@@ -192,8 +194,8 @@ public class ProfileFragment extends Fragment
         mFollowing.setText(String.valueOf(user.getFollowing()));
         mDisplayName.setText(String.valueOf(user.getUserName()));
         mUsername.setText(String.valueOf(user.getUserName()));
+        Glide.with(getContext()).load(user.getProfile_photo()).into(mProfilePhoto);
         initPosts();
-        // Glide.with(getContext()).load(user.getImageurl()).into(image_profile);
         //                mPosts= user.getPosts();
     }
 }
